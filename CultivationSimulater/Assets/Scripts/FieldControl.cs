@@ -4,11 +4,19 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System.Collections.ObjectModel;
+using System;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class FieldControl : MonoBehaviour
 {
 
-    //private Subject<int> 
+    private Subject<int> GrowingSubject = new Subject<int>();
+
+    public IObservable<int> FeedSeed
+    {
+        get { return GrowingSubject; }
+    }
 
     // Use this for initialization
     void Start()
@@ -23,8 +31,8 @@ public class FieldControl : MonoBehaviour
         eventTrigger.OnPointerDownAsObservable()
             .Subscribe(pointerEventData =>
             {
-                Debug.Log("kottidekenti");
-                
+                UnityEngine.Debug.Log("kottidekenti");
+                GrowingSubject.OnNext(0);
             })
             .AddTo(gameObject);
     }
