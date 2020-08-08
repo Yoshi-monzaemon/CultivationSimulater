@@ -7,15 +7,16 @@ using System.Collections.ObjectModel;
 using System;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
+using UnityEngine.UI;
+using System.Security.Permissions;
 
 public class FieldControl : MonoBehaviour
 {
-
-    private Subject<int> GrowingSubject = new Subject<int>();
+    private Subject<int> growingSubject = new Subject<int>();
 
     public IObservable<int> FeedSeed
     {
-        get { return GrowingSubject; }
+        get { return growingSubject; }
     }
 
     // Use this for initialization
@@ -31,11 +32,10 @@ public class FieldControl : MonoBehaviour
         eventTrigger.OnPointerDownAsObservable()
             .Subscribe(pointerEventData =>
             {
-                UnityEngine.Debug.Log("kottidekenti");
-                GrowingSubject.OnNext(0);
+                UnityEngine.Debug.Log(pointerEventData.position);
+                growingSubject.OnNext(0);
             })
             .AddTo(gameObject);
     }
-
 
 }
