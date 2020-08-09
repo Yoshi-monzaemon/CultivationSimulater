@@ -12,9 +12,11 @@ using System.Security.Permissions;
 
 public class FieldControl : MonoBehaviour
 {
-    private Subject<int> growingSubject = new Subject<int>();
+    [SerializeField] List<GameObject> fieldInstants;
 
-    public IObservable<int> FeedSeed
+    private Subject<GameObject> growingSubject = new Subject<GameObject>();
+
+    public IObservable<GameObject> FeedSeed
     {
         get { return growingSubject; }
     }
@@ -26,16 +28,20 @@ public class FieldControl : MonoBehaviour
 
     private void Awake()
     {
-        var eventTrigger = this.gameObject.AddComponent<ObservableEventTrigger>();
+        for(int i = 0; i < fieldInstants.Count; i++)
+        {
+            SetFieldInstance(i);
+        }
+    }
 
-        //PointerDown
-        eventTrigger.OnPointerDownAsObservable()
+    void SetFieldInstance(int i)
+    {
+        fieldInstants[i].AddComponent<ObservableEventTrigger>()
+            .OnPointerDownAsObservable()
             .Subscribe(pointerEventData =>
             {
-                UnityEngine.Debug.Log(pointerEventData.position);
-                growingSubject.OnNext(0);
+                growingSubject.OnNext(pointerEventData.pointerEnter);
             })
             .AddTo(gameObject);
     }
-
 }
