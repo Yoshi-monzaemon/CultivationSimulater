@@ -16,6 +16,7 @@ public class FieldControl : MonoBehaviour
 
     private Subject<GameObject> growingSubject = new Subject<GameObject>();
 
+
     public IObservable<GameObject> FeedSeed
     {
         get { return growingSubject; }
@@ -34,6 +35,7 @@ public class FieldControl : MonoBehaviour
         }
     }
 
+    //フィールドがクリック検知できるようにする
     void SetFieldInstance(int i)
     {
         fieldInstants[i].AddComponent<ObservableEventTrigger>()

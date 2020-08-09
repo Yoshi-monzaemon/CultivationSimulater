@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using System;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class CheckPushedButton : MonoBehaviour
 {
@@ -26,15 +28,17 @@ public class CheckPushedButton : MonoBehaviour
     {
         for(int i=0; i<buttons.Count; i++)
         {
-            ButtonPushedCheck(i);
-
+            SetPushedButtonCheckSubject(i);
         }
     }
 
-    void ButtonPushedCheck(int i)
+    void SetPushedButtonCheckSubject(int i)
     {
         buttons[i].onClick.AsObservable()
-            .Subscribe(count => sendPushedButtonSubject.OnNext(i))
+            .Subscribe(_ =>
+            {
+                sendPushedButtonSubject.OnNext(i);
+            })
             .AddTo(gameObject);
     }
 }

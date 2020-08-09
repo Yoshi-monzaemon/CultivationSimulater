@@ -6,6 +6,7 @@ TagManager:
   tags:
   - plantfield
   - Cube
+  - FruitPlant
   layers:
   - Default
   - TransparentFX
