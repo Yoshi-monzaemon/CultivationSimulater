@@ -17,12 +17,11 @@ public class GrowPlant : MonoBehaviour
     [SerializeField] private GameObject sproutPlant;
     [SerializeField] private GameObject bloomPlant;
     [SerializeField] private GameObject fruitPlant;
-
     [SerializeField] private CheckPushedButton checkPushedButton;
     [SerializeField] List<Button> buttons;
 
-    bool fertilizerSelected = false;
-    bool harvestSelected = false;
+    public bool fertilizerSelected = false;
+    public bool harvestSelected = false;
 
     Color planeColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
     Color selectedColor = new Color(165f / 255f, 220f / 255f, 192f / 255f, 255f / 255f);
@@ -35,6 +34,7 @@ public class GrowPlant : MonoBehaviour
 
     private void Awake()
     {
+        //フィールドがクリックされたとき
         fieldControl.FeedSeed.Subscribe(clickedFieldInstance =>
         {
             //選択された農地を取得
@@ -45,43 +45,51 @@ public class GrowPlant : MonoBehaviour
             //既に作物を栽培中か判定
             if (fieldObject.childCount > 0)
             {
-                plantExist = true;
+                //作物を取得
                 plantObject = fieldObject.GetChild(0).transform;
+                plantExist = true;
             }
             else
             {
                 plantExist = false;
             }
 
+            //作物栽培中のとき
             if (plantExist)
             {
+                plantObject = fieldObject.GetChild(0).transform;
                 //肥料モードの時
                 if (fertilizerSelected)
                 {
-
+                    Destroy(plantObject.gameObject);
+                    GameObject obj = (GameObject)Instantiate(fruitPlant, fieldObject);
+                    obj.transform.parent = fieldObject;
                 }
                 //収穫モードの時
                 else if (harvestSelected)
                 {
                     //植物が収穫可能か確認
-                    plantObject = fieldObject.GetChild(0).transform;
                     if (plantObject.tag == "FruitPlant")
                     {
-                        Debug.Log("実っています");
+                        Destroy(plantObject.gameObject);
                     }
                 }
             }
-            else
+            //作物栽培中でないとき
+            else　if(!fertilizerSelected && !harvestSelected)
             {
                 GrowingPlant(fieldObject);
             }
-        });
+        })
+        .AddTo(gameObject);
 
+        //肥料か収穫のボタンが押されたとき
         checkPushedButton.PushedButton
             .Subscribe(buttonNumber =>
             {
                 ChangeStatusPushedButton(buttonNumber);
-            });
+            })
+            .AddTo(gameObject);
     }
 
     //植物を成長させる
@@ -93,14 +101,15 @@ public class GrowPlant : MonoBehaviour
                 obj.transform.parent = fieldObject;
             })
             .AddTo(gameObject);
+        
         Observable.Timer(TimeSpan.FromSeconds(5))
             .Subscribe(_ =>
             {
-                //Destroy(seedField);
                 GameObject obj = (GameObject)Instantiate(bloomPlant, fieldObject);
                 obj.transform.parent = fieldObject;
             })
             .AddTo(gameObject);
+
         Observable.Timer(TimeSpan.FromSeconds(10))
             .Subscribe(_ =>
             {
@@ -110,7 +119,7 @@ public class GrowPlant : MonoBehaviour
             .AddTo(gameObject);
     }
 
-    //収穫、肥料のいずれかが選択されていた場合のフラグ立て
+    //収穫、肥料のいずれかのボタンが押下された際のフラグ立て
     void ChangeStatusPushedButton(int buttonNumber)
     {
         switch (buttonNumber)
@@ -141,7 +150,21 @@ public class GrowPlant : MonoBehaviour
                 break;
         }
     }
-    //収穫
 
+    //作物に肥料をあげる
+    public void HastenGrowthOfPlant(GameObject instantiatePlant)
+    {
+        GameObject obj = (GameObject)Instantiate(fruitPlant, instantiatePlant.transform.parent.transform);
+        obj.transform.parent = instantiatePlant.transform.parent.transform;
+        Destroy(instantiatePlant);
+    }
 
+    //作物を収穫する
+    public void HarvestPlant(GameObject instansiatedPlant)
+    {
+        if (harvestSelected)
+        {
+            Destroy(instansiatedPlant);
+        }
+    }
 }
