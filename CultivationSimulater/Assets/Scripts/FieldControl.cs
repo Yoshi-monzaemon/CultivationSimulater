@@ -34,14 +34,18 @@ public class FieldControl : MonoBehaviour
         }
     }
 
-    //フィールドがクリック検知できるようにする
+    //個々のフィールドがクリック検知できるようにする
     void SetFieldInstance(int i)
     {
         fieldInstants[i].AddComponent<ObservableEventTrigger>()
             .OnPointerDownAsObservable()
             .Subscribe(pointerEventData =>
             {
-                growingSubject.OnNext(pointerEventData.pointerEnter);
+                //栽培中でなければイベントを発生させる
+                if (fieldInstants[i].tag == "plantfield")
+                {
+                    growingSubject.OnNext(pointerEventData.pointerEnter);
+                }
             })
             .AddTo(gameObject);
     }

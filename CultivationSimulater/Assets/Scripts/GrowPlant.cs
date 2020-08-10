@@ -35,53 +35,19 @@ public class GrowPlant : MonoBehaviour
     private void Awake()
     {
         //フィールドがクリックされたとき
-        fieldControl.FeedSeed.Subscribe(clickedFieldInstance =>
-        {
-            //選択された農地を取得
-            Transform fieldObject = clickedFieldInstance.transform;
-            Transform plantObject;
-            bool plantExist;
-
-            //既に作物を栽培中か判定
-            if (fieldObject.childCount > 0)
+        fieldControl.FeedSeed
+            .Subscribe(clickedFieldInstance =>
             {
-                //作物を取得
-                plantObject = fieldObject.GetChild(0).transform;
-                plantExist = true;
-            }
-            else
-            {
-                plantExist = false;
-            }
-
-            //作物栽培中のとき
-            if (plantExist)
-            {
-                plantObject = fieldObject.GetChild(0).transform;
-                //肥料モードの時
-                if (fertilizerSelected)
+                //選択された農地を取得
+                Transform fieldObject = clickedFieldInstance.transform;
+            
+                //肥料も収穫も選択されていないとき
+                if (!fertilizerSelected && !harvestSelected)
                 {
-                    Destroy(plantObject.gameObject);
-                    GameObject obj = (GameObject)Instantiate(fruitPlant, fieldObject);
-                    obj.transform.parent = fieldObject;
+                    SproutingPlant(fieldObject);
                 }
-                //収穫モードの時
-                else if (harvestSelected)
-                {
-                    //植物が収穫可能か確認
-                    if (plantObject.tag == "FruitPlant")
-                    {
-                        Destroy(plantObject.gameObject);
-                    }
-                }
-            }
-            //作物栽培中でないとき
-            else　if(!fertilizerSelected && !harvestSelected)
-            {
-                GrowingPlant(fieldObject);
-            }
-        })
-        .AddTo(gameObject);
+            })
+            .AddTo(gameObject);
 
         //肥料か収穫のボタンが押されたとき
         checkPushedButton.PushedButton
@@ -92,31 +58,11 @@ public class GrowPlant : MonoBehaviour
             .AddTo(gameObject);
     }
 
-    //植物を成長させる
-    public void GrowingPlant(Transform fieldObject)
+    //植物を植える
+    public void SproutingPlant(Transform fieldObject)
     {
-        Observable.Timer(TimeSpan.FromSeconds(0))
-            .Subscribe(_ => {
-                GameObject obj = (GameObject)Instantiate(sproutPlant, fieldObject);
-                obj.transform.parent = fieldObject;
-            })
-            .AddTo(gameObject);
-        
-        Observable.Timer(TimeSpan.FromSeconds(5))
-            .Subscribe(_ =>
-            {
-                GameObject obj = (GameObject)Instantiate(bloomPlant, fieldObject);
-                obj.transform.parent = fieldObject;
-            })
-            .AddTo(gameObject);
-
-        Observable.Timer(TimeSpan.FromSeconds(10))
-            .Subscribe(_ =>
-            {
-                GameObject obj = (GameObject)Instantiate(fruitPlant, fieldObject);
-                obj.transform.parent = fieldObject;
-            })
-            .AddTo(gameObject);
+        GameObject obj = (GameObject)Instantiate(sproutPlant, fieldObject);
+        obj.transform.parent = fieldObject;
     }
 
     //収穫、肥料のいずれかのボタンが押下された際のフラグ立て
@@ -134,6 +80,8 @@ public class GrowPlant : MonoBehaviour
                 {
                     fertilizerSelected = true;
                     buttons[buttonNumber].image.color = selectedColor;
+                    harvestSelected = false;
+                    buttons[1].image.color = planeColor;
                 }
                 break;
             case 1:
@@ -146,25 +94,10 @@ public class GrowPlant : MonoBehaviour
                 {
                     harvestSelected = true;
                     buttons[buttonNumber].image.color = selectedColor;
+                    fertilizerSelected = false;
+                    buttons[0].image.color = planeColor;
                 }
                 break;
-        }
-    }
-
-    //作物に肥料をあげる
-    public void HastenGrowthOfPlant(GameObject instantiatePlant)
-    {
-        GameObject obj = (GameObject)Instantiate(fruitPlant, instantiatePlant.transform.parent.transform);
-        obj.transform.parent = instantiatePlant.transform.parent.transform;
-        Destroy(instantiatePlant);
-    }
-
-    //作物を収穫する
-    public void HarvestPlant(GameObject instansiatedPlant)
-    {
-        if (harvestSelected)
-        {
-            Destroy(instansiatedPlant);
         }
     }
 }
