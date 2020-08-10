@@ -108,11 +108,10 @@ GameObject:
   - component: {fileID: 3434346687269646571}
   - component: {fileID: 7582974920821127160}
   - component: {fileID: 5003818362318027367}
-  - component: {fileID: 7109442950518079415}
   - component: {fileID: -9007825372063355539}
   m_Layer: 0
   m_Name: BloomPlant
-  m_TagString: Untagged
+  m_TagString: BloomPlant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,18 +193,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7109442950518079415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3836743740789411557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df365e92fe8bacd40919c64aa1b9ca90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-9007825372063355539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,3 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6e038915b27d499ba982d7c506732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloomPlant: {fileID: 3836743740789411557}
+  fruitPlant: {fileID: 811006828073024564, guid: 4e25b470f473ccc49b6f544f384da17f,
+    type: 3}

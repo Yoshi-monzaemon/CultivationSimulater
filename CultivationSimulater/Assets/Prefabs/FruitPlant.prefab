@@ -109,7 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6e038915b27d499ba982d7c506732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growPlant: {fileID: 0}
+  bloomPlant: {fileID: 3836743740789411557, guid: 7e5cb0121dca73f4c86e866d82ae7331,
+    type: 3}
+  fruitPlant: {fileID: 811006828073024564}
 --- !u!1 &5402681416367792136
 GameObject:
   m_ObjectHideFlags: 0
