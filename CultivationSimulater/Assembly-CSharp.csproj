@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\DeletePlantInstance.cs" />
     <Compile Include="Assets\Scripts\FieldControl.cs" />
     <Compile Include="Assets\Scripts\CheckPushedButton.cs" />
+    <Compile Include="Assets\Scripts\PlantControl.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/dices/Documents/GitHub/CultivationSimulater/CultivationSimulater/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

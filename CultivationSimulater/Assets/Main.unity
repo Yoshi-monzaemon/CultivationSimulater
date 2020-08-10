@@ -5176,7 +5176,7 @@ GameObject:
   - component: {fileID: 898177710}
   m_Layer: 0
   m_Name: EventSystem
-  m_TagString: Untagged
+  m_TagString: EventSystem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5252,6 +5252,8 @@ MonoBehaviour:
   buttons:
   - {fileID: 445236088}
   - {fileID: 1677536184}
+  fertilizerSelected: 0
+  harvestSelected: 0
 --- !u!114 &898177708
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 7582974920821127160}
   - component: {fileID: 5003818362318027367}
   - component: {fileID: 7109442950518079415}
+  - component: {fileID: -9007825372063355539}
   m_Layer: 0
   m_Name: BloomPlant
   m_TagString: Untagged
@@ -203,5 +204,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df365e92fe8bacd40919c64aa1b9ca90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-9007825372063355539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836743740789411557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6e038915b27d499ba982d7c506732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

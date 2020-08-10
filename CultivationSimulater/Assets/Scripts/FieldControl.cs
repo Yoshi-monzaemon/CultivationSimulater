@@ -16,7 +16,6 @@ public class FieldControl : MonoBehaviour
 
     private Subject<GameObject> growingSubject = new Subject<GameObject>();
 
-
     public IObservable<GameObject> FeedSeed
     {
         get { return growingSubject; }

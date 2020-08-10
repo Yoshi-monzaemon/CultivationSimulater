@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 928144208201783799}
   - component: {fileID: 928144208201783796}
   - component: {fileID: 3850363349951132964}
+  - component: {fileID: 4337642358798455557}
   m_Layer: 0
   m_Name: SproutPlant
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928144208201783794}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 0.25, y: 5, z: 0.25}
   m_Children: []
@@ -108,3 +109,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df365e92fe8bacd40919c64aa1b9ca90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4337642358798455557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928144208201783794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6e038915b27d499ba982d7c506732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growPlant: {fileID: 0}
